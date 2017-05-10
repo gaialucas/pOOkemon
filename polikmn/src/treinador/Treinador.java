@@ -69,4 +69,8 @@ public abstract class Treinador {
 		perdeu = true;
 	}
 	
+	abstract public int estrategia();
+	abstract public int escolheAtaque();
+	abstract public int escolheItem();
+	/*abstract public int trocaPokemon(); ??*/
 }

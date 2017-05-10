@@ -18,7 +18,11 @@ abstract public class Pokemon {
 	public int getHP(){
 		return hp;
 	}
-
+	
+	public int getMaxHP(){
+		return maxHP;
+	}
+	
 	public String getNome(){
 		return nome;
 	}

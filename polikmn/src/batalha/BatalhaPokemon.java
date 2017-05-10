@@ -1,6 +1,11 @@
 package batalha;
 
 import item.Item;
+import item.Potion;
+import item.SuperPotion;
+import treinador.Ash;
+import treinador.Jogador;
+import treinador.Red;
 import treinador.Treinador;
 
 public class BatalhaPokemon extends Controller {
@@ -23,7 +28,7 @@ public class BatalhaPokemon extends Controller {
 		}
 		
 		public String description () { 
-			return treinador1.getPokemon(treinador1.getPokemonAtual()).getNome() + "atacou " + treinador2.getPokemon(treinador2.getPokemonAtual()).getNome() + " com " + treinador1.getPokemon(treinador1.getPokemonAtual()).getAtaque(i).getNome(); 
+			return treinador1.getPokemon(treinador1.getPokemonAtual()).getNome() + " (HP: "+treinador1.getPokemon(treinador1.getPokemonAtual()).getHP()+"/"+treinador1.getPokemon(treinador1.getPokemonAtual()).getMaxHP()+") atacou " + treinador2.getPokemon(treinador2.getPokemonAtual()).getNome() + " (HP: "+treinador2.getPokemon(treinador2.getPokemonAtual()).getHP()+"/"+treinador2.getPokemon(treinador2.getPokemonAtual()).getMaxHP()+") com " + treinador1.getPokemon(treinador1.getPokemonAtual()).getAtaque(i).getNome(); 
 		}
 	}
 	
@@ -39,7 +44,7 @@ public class BatalhaPokemon extends Controller {
 		}
 		
 		public String description () { 
-			return treinador2.getPokemon(treinador2.getPokemonAtual()).getNome() + "atacou " + treinador1.getPokemon(treinador1.getPokemonAtual()).getNome() + " com " + treinador2.getPokemon(treinador2.getPokemonAtual()).getAtaque(i).getNome(); 
+			return treinador2.getPokemon(treinador2.getPokemonAtual()).getNome() + " (HP: "+treinador2.getPokemon(treinador2.getPokemonAtual()).getHP()+"/"+treinador2.getPokemon(treinador2.getPokemonAtual()).getMaxHP()+") atacou " + treinador1.getPokemon(treinador1.getPokemonAtual()).getNome() + " (HP: "+treinador1.getPokemon(treinador1.getPokemonAtual()).getHP()+"/"+treinador1.getPokemon(treinador1.getPokemonAtual()).getMaxHP()+") com " + treinador2.getPokemon(treinador2.getPokemonAtual()).getAtaque(i).getNome(); 
 		}
 
 	}
@@ -64,10 +69,10 @@ public class BatalhaPokemon extends Controller {
 	private class TrocarPokemon extends Event {
 		private Treinador treinador;
 		private int novoPokemon;
-		public TrocarPokemon (Treinador t, int troca, long eventTime) {
+		public TrocarPokemon (Treinador t, int indiceTroca, long eventTime) {
 			super(eventTime);
 			treinador = t;
-			novoPokemon = troca;
+			novoPokemon = indiceTroca;
 			
 		}
 		
@@ -85,10 +90,10 @@ public class BatalhaPokemon extends Controller {
 		private Treinador treinador;
 		private int pokemon;
 		private Item i;
-		public UsarItem (Treinador t,int escolhido, Item item, long eventTime) {
+		public UsarItem (Treinador t,int indicePokemonEscolhido, Item item, long eventTime) {
 			super(eventTime);
 			treinador = t;
-			pokemon = escolhido;
+			pokemon = indicePokemonEscolhido;
 			i = item;
 		}
 		
@@ -97,7 +102,7 @@ public class BatalhaPokemon extends Controller {
 		}
 		
 		public String description () { 
-			return "O treinador "+treinador.getNome()+" usou o " +i.getNome()+ " em "+treinador.getPokemon(pokemon).getNome(); 
+			return "O treinador "+treinador.getNome()+" usou o " +i.getNome()+ " em "+treinador.getPokemon(pokemon).getNome()+" (HP: "+treinador.getPokemon(treinador.getPokemonAtual()).getHP()+"/"+treinador.getPokemon(treinador.getPokemonAtual()).getMaxHP()+")"; 
 		}
 
 	}
@@ -111,61 +116,216 @@ public class BatalhaPokemon extends Controller {
 			// Instead of hard-wiring, you could parse
 			// configuration information from a text
 			// file here:
-			int i = 0;
-			/*while (treinador1.getPerdeu() || treinador2.getPerdeu()) {
-				addEvent(new Ataque12(1, i));
-				addEvent(new Ataque21(1, i + 1000));
-				i += 2000;
-			}
+			//teste
 			addEvent(new Ataque12(1, tm));
 			addEvent(new Ataque21(1, tm + 1000));
+			addEvent(new UsarItem(treinador1, 0, new Potion(), tm + 1500));
 			addEvent(new Ataque12(1, tm + 2000));
 			addEvent(new Ataque21(1, tm + 3000));
-			addEvent(new Ataque12(1, tm + 8000));
-			addEvent(new Ataque21(1, tm + 9000));
-			addEvent(new Ataque12(1, tm + 10000));*/
-			addEvent(new Fugir(treinador1, tm));
-			// Can even add a Restart object!
-			addEvent(new Restart(tm + 20000));
+			addEvent(new UsarItem(treinador2, 0, new SuperPotion(), tm + 3500));
+			addEvent(new Ataque12(1, tm + 4000));
+			addEvent(new Ataque21(1, tm + 5000));
+			addEvent(new TrocarPokemon(treinador1, 1, tm + 6000));
+			addEvent(new UsarItem(treinador2, 0, new Potion(), tm + 6500));
+			addEvent(new Ataque12(1, tm + 7000));
+			addEvent(new Ataque21(1, tm + 8000));
+			addEvent(new Fugir(treinador1, tm + 9000));
 		}
 		public String description() {
 			return "Restarting system";
 		}
 	}
 	
-	public static void main(String[] args) {
-		Pokemon pokemon1, pokemon2, pokemon3;
-		Treinador treinador1, treinador2;
-		Ataque[] ataques1 = new Ataque[]{
-				new Ataque("1.1", 10, 0),
-				new Ataque("1.2", 20, 1),
-				new Ataque("1.3", 30, 1),
-				new Ataque("1.4", 40, 1),
-		};
-		Ataque[] ataques2 = new Ataque[]{
-				new Ataque("2.1", 15, 0),
-				new Ataque("2.2", 25, 1),
-				new Ataque("2.3", 35, 1),
-		};
-		Pokemon[] pokemons1 = new Pokemon[]{
-				new Pokemon(100, "Charmander", ataques1, 4),
-				new Pokemon(90, "Pikachu", ataques2, 3),
-		};
-		treinador1 = new Treinador("Ash", pokemons1, 2);
-		Ataque[] ataques3 = new Ataque[]{
-				new Ataque("1.1", 10, 0),
-				new Ataque("1.2", 20, 1),
-				new Ataque("1.3", 30, 1),
-				new Ataque("1.4", 40, 1),
-		};
-		Pokemon[] pokemons2 = new Pokemon[]{
-				new Pokemon(110, "Charmeleon", ataques3, 4),
-		};
-		treinador2 = new Treinador("Red", pokemons2, 1);
-		BatalhaPokemon batalha = new BatalhaPokemon(treinador1, treinador2);
-		long tm = System.currentTimeMillis();
-		batalha.addEvent(batalha.new Restart(tm));
-		batalha.run();
+	public void batalha(long tm){
+		int i = 0;
+		int comando1, comando2; //comando dos jogadores 1 e 2
+		int ataque1, ataque2; //ataques escolhidos
+		do{ /*enquanto nenhum dos dois treinadores ganhou a batalha*/
+			comando1 = treinador1.estrategia();
+			comando2 = treinador2.estrategia();
+			if (comando1 > comando2){ //1 antes
+				switch (comando1){
+				case 2:
+					if (treinador1.escolheItem() == 1){
+						addEvent(new UsarItem(treinador1, treinador1.getPokemonAtual(), new SuperPotion(), tm + i));
+					}else{
+						addEvent(new UsarItem(treinador1, treinador1.getPokemonAtual(), new Potion(), tm + i));
+					}
+					i+=1000;
+					run();
+					//comando1 = 2 ==> comando2 = 1 
+					ataque2 = treinador2.escolheAtaque();
+					addEvent(new Ataque21(ataque2, tm + i));	
+					run();
+					i+=1000;
+					/*verifica se o pokemon do treinador 1 esta vivo e o troca caso necessario/possivel*/
+					if (treinador1.getPokemon(treinador1.getPokemonAtual()).getHP() == 0){
+						System.out.println(treinador1.getPokemon(treinador1.getPokemonAtual()).getNome()+" sem HP");
+						treinador1.pokemonMorre();
+						if (!treinador1.restaPokemons()){
+							treinador1.setPerdeu();
+						}else{
+							addEvent(new TrocarPokemon(treinador1, treinador1.getPokemonAtual()+1, tm + i));
+							run();
+							i+=1000;
+						}
+					}
+					break;
+				case 3: //as trocas estao sendo feitas quando o pokemon fica fora de combate
+					break;
+				case 4:
+					addEvent(new Fugir(treinador1, tm + i));
+					run();
+					break;
+				}
+			}else{
+				if (comando2 > comando1){//2 antes
+					switch (comando2){
+					case 2:
+						if (treinador2.escolheItem() == 1){
+							addEvent(new UsarItem(treinador2, treinador2.getPokemonAtual(), new SuperPotion(), tm + i));
+						}else{
+							addEvent(new UsarItem(treinador2, treinador2.getPokemonAtual(), new Potion(), tm + i));
+						}
+						i+=1000;
+						run();
+						//comando2 = 2 ==> comando1 = 1 
+						ataque1 = treinador1.escolheAtaque();
+						addEvent(new Ataque12(ataque1, tm + i));	
+						run();
+						i+=1000;
+						/*verifica se o pokemon do treinador 1 esta vivo e o troca caso necessario/possivel*/
+						if (treinador2.getPokemon(treinador2.getPokemonAtual()).getHP() == 0){
+							System.out.println(treinador2.getPokemon(treinador2.getPokemonAtual()).getNome()+" sem HP");
+							treinador2.pokemonMorre();
+							if (!treinador2.restaPokemons()){
+								treinador2.setPerdeu();
+							}else{
+								addEvent(new TrocarPokemon(treinador2, treinador2.getPokemonAtual()+1, tm + i));
+								run();
+								i+=1000;
+							}
+						}
+						break;
+					case 3: //as trocas estao sendo feitas quando o pokemon fica fora de combate
+						break;
+					case 4:
+						addEvent(new Fugir(treinador2, tm + i));
+						run();
+						break;
+					}
+				}else{
+					if (comando1 == 1){ //verifica prioridade de ataque
+						ataque1 = treinador1.escolheAtaque();
+						ataque2 = treinador2.escolheAtaque();
+						if (treinador1.getPokemon(treinador1.getPokemonAtual()).getAtaque(ataque1).getPrioridadeAtaque() >= treinador2.getPokemon(treinador2.getPokemonAtual()).getAtaque(ataque2).getPrioridadeAtaque()){ //primeiro tem prioridade ou ambos tem a mesma prioridade
+							addEvent(new Ataque12(ataque1, tm + i));
+							run();
+							i+=1000;
+							/*verifica se o pokemon do treinador 2 esta vivo para atacar (senao o troca caso possivel)*/
+							if (treinador2.getPokemon(treinador2.getPokemonAtual()).getHP() == 0){
+								System.out.println(treinador2.getPokemon(treinador2.getPokemonAtual()).getNome()+" sem HP");
+								treinador2.pokemonMorre();
+								if (!treinador2.restaPokemons()){
+										treinador2.setPerdeu();
+								}else{
+									addEvent(new TrocarPokemon(treinador2, treinador2.getPokemonAtual()+1, tm + i));
+								}
+							}else{
+								addEvent(new Ataque21(ataque2, tm + i));
+							}			
+							run();
+							i+=1000;
+							/*verifica se o pokemon do treinador 1 esta vivo e o troca caso necessario/possivel*/
+							if (treinador1.getPokemon(treinador1.getPokemonAtual()).getHP() == 0){
+								System.out.println(treinador1.getPokemon(treinador1.getPokemonAtual()).getNome()+" sem HP");
+								treinador1.pokemonMorre();
+								if (!treinador1.restaPokemons()){
+									treinador1.setPerdeu();
+								}else{
+									addEvent(new TrocarPokemon(treinador1, treinador1.getPokemonAtual()+1, tm + i));
+									run();
+									i+=1000;
+								}
+							}
+						}else{ //segundo tem prioridade
+							addEvent(new Ataque21(ataque2, tm + i));
+							run();
+							i+=1000;
+							/*verifica se o pokemon do treinador 1 esta vivo para atacar (senao o troca caso possivel)*/
+							if (treinador1.getPokemon(treinador1.getPokemonAtual()).getHP() == 0){
+								System.out.println(treinador1.getPokemon(treinador1.getPokemonAtual()).getNome()+" sem HP");
+								treinador1.pokemonMorre();
+								if (!treinador1.restaPokemons()){
+										treinador1.setPerdeu();
+								}else{
+									addEvent(new TrocarPokemon(treinador1, treinador1.getPokemonAtual()+1, tm + i));
+								}
+							}else{
+								addEvent(new Ataque12(ataque1, tm + i));
+							}			
+							run();
+							i+=1000;
+							/*verifica se o pokemon do treinador 2 esta vivo e o troca caso necessario/possivel*/
+							if (treinador2.getPokemon(treinador2.getPokemonAtual()).getHP() == 0){
+								System.out.println(treinador2.getPokemon(treinador2.getPokemonAtual()).getNome()+" sem HP");
+								treinador2.pokemonMorre();
+								if (!treinador2.restaPokemons()){
+									treinador2.setPerdeu();
+								}else{
+									addEvent(new TrocarPokemon(treinador2, treinador2.getPokemonAtual()+1, tm + i));
+									run();
+									i+=1000;
+								}
+							}
+						}
+					}else{ //a ordem não influencia
+						switch (comando1){
+						case 2:
+							if (treinador1.escolheItem() == 1){
+								addEvent(new UsarItem(treinador1, treinador1.getPokemonAtual(), new SuperPotion(), tm + i));
+							}else{
+								addEvent(new UsarItem(treinador1, treinador1.getPokemonAtual(), new Potion(), tm + i));
+							}
+							i+=1000;
+							run();
+							if (treinador2.escolheItem() == 1){
+								addEvent(new UsarItem(treinador2, treinador2.getPokemonAtual(), new SuperPotion(), tm + i));
+							}else{
+								addEvent(new UsarItem(treinador2, treinador2.getPokemonAtual(), new Potion(), tm + i));
+							}
+							i+=1000;
+							run();
+							break;
+						case 3: //as trocas estao sendo feitas quando o pokemon fica fora de combate
+							break;
+						case 4:
+							addEvent(new Fugir(treinador1, tm + i));
+							run();
+							break;
+						}
+					}
+				}
+			}
+		} while (!(treinador1.getPerdeu() || treinador2.getPerdeu()));
+		if (treinador1.getPerdeu()){
+			System.out.println("O treinador "+treinador2.getNome()+" venceu.");
+		}else{
+			System.out.println("O treinador "+treinador1.getNome()+" venceu.");
+		}
+	}
+		public static void main(String[] args) {
+			Treinador treinador1, treinador2, treinador3, treinador4;
+			treinador1 = new Ash();
+			treinador2 = new Red();
+			treinador3 = new Jogador("João");
+			treinador4 = new Jogador("José");
+			long tm = System.currentTimeMillis();
+			BatalhaPokemon batalha = new BatalhaPokemon(treinador1, treinador2);
+			/*batalha.addEvent(batalha.new Restart(tm));
+			batalha.run(); teste dos comandos*/
+			batalha.batalha(tm);
+			
 		}
 	
 }
