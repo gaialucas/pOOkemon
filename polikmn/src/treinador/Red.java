@@ -15,7 +15,7 @@ public class Red extends Treinador{
 	}
 	
 	public int estrategia() {
-		if (getPokemon(getPokemonAtual()).getHP() <= 30){ //usa item neste caso
+		if (getPokemonAtual().getHP() <= 30){ //usa item neste caso
 			return 2;
 		}else{
 			return 1; //ataca

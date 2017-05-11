@@ -1,5 +1,7 @@
 package treinador;
 
+import java.util.Random;
+
 import item.Item;
 import pokemon.Pokemon;
 
@@ -28,6 +30,10 @@ public abstract class Treinador {
 			s[i] = bag[i].getNome();
 		}
 		return s;
+	}
+	
+	public Item getItem(int i) {
+		return bag[i];
 	}
 	
 	public int getNumPokemonsRestantes(){
@@ -62,7 +68,20 @@ public abstract class Treinador {
 		}
 	}
 	
-	public int getPokemonAtual(){
+	public int trocaPokemon(){
+		Random r = new Random();
+		int aux = r.nextInt(pokemons.length);
+		while(!getPokemon(aux).vivo()){
+			aux = r.nextInt(pokemons.length);
+		}
+		return aux;
+	}
+	
+	public Pokemon getPokemonAtual(){
+		return getPokemon(pkmnAtual);
+	}
+	
+	public int getIndex(){
 		return pkmnAtual;
 	}
 	
@@ -81,5 +100,5 @@ public abstract class Treinador {
 	abstract public int estrategia();
 	abstract public int escolheAtaque();
 	abstract public int escolheItem();
-	/*abstract public int trocaPokemon(); ??*/
+	
 }

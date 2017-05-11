@@ -32,12 +32,12 @@ private Scanner sc = new Scanner(System.in);;
 	
 	public int escolheAtaque(){
 		int num = 5;
-		while ((num > getPokemon(getPokemonAtual()).getNumAtaques()-1) || num < 0){
+		while ((num > getPokemonAtual().getNumAtaques()-1) || num < 0){
 			System.out.println(getNome()+", escolha um ataque: ");
-			for(int i = 0; i<getPokemon(getPokemonAtual()).getNumAtaques()-1; i++){
-				System.out.print(i+"-"+getPokemon(getPokemonAtual()).getAtaque(i).getNome()+" ("+getPokemon(getPokemonAtual()).getAtaque(i).getDano()+" de dano), ");
+			for(int i = 0; i<getPokemonAtual().getNumAtaques()-1; i++){
+				System.out.print(i+"-"+getPokemonAtual().getAtaque(i).getNome()+" ("+getPokemonAtual().getAtaque(i).getDano()+" de dano), ");
 			}
-			System.out.print(getPokemon(getPokemonAtual()).getNumAtaques()-1+"-"+getPokemon(getPokemonAtual()).getAtaque(getPokemon(getPokemonAtual()).getNumAtaques()-1).getNome()+" ("+getPokemon(getPokemonAtual()).getAtaque(getPokemon(getPokemonAtual()).getNumAtaques()-1).getDano()+" de dano), ");
+			System.out.print(getPokemonAtual().getNumAtaques()-1+"-"+getPokemonAtual().getAtaque(getPokemonAtual().getNumAtaques()-1).getNome()+" ("+getPokemonAtual().getAtaque(getPokemonAtual().getNumAtaques()-1).getDano()+" de dano), ");
 			num = sc.nextInt();
 		}
 		return num;

@@ -3,7 +3,7 @@ package pokemon;
 import ataques.Ataque;
 
 abstract public class Pokemon {
-	private int hp, maxHP, numAtaques = 0;
+	private int hp, maxHP, numAtaques;
 	private String nome;
 	private Ataque[] ataques;
 
