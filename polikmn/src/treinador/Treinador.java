@@ -12,12 +12,14 @@ public abstract class Treinador {
 	private int pkmnAtual = 0;
 	private boolean perdeu = false;
 	private Item[] bag;
+	private int posicaoMapa;
 	
-	public Treinador(String nomeTreinador, Pokemon[] pokemonsTreinador, Item[] itens){
+	public Treinador(String nomeTreinador, Pokemon[] pokemonsTreinador, Item[] itens, int posicao){
 		nome = nomeTreinador;
 		pokemons = pokemonsTreinador;
 		numPokemonsRestantes = pokemonsTreinador.length;
 		bag = itens;
+		posicaoMapa = posicao;
 	}
 	
 	public String getNome(){
@@ -91,6 +93,16 @@ public abstract class Treinador {
 	
 	public boolean getPerdeu(){
 		return perdeu;
+	}
+	
+	public int getPosicao(){
+		return posicaoMapa;
+	}
+	
+	public void setPosicao(int posicao){
+		if (posicao >= 0 && posicao < 4){ //referente ao mapa: vetor de 0 a 3
+			posicaoMapa = posicao;
+		}
 	}
 	
 	public void setPerdeu() {

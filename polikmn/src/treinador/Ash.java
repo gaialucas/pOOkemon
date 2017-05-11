@@ -11,7 +11,11 @@ import pokemon.Rhydon;
 public class Ash extends Treinador{
 
 	public Ash() {
-		super("Ash", new Pokemon[] {new Pikachu(), new Pidgeot(), new Rhydon()}, new Item[] {new SuperPotion(), new Potion()});
+		super("Ash", new Pokemon[] {new Pikachu(), new Pidgeot(), new Rhydon()}, new Item[] {new SuperPotion(), new Potion()}, 0);
+	}
+	
+	public Ash(int posicao) {
+		super("Ash", new Pokemon[] {new Pikachu(), new Pidgeot(), new Rhydon()}, new Item[] {new SuperPotion(), new Potion()}, posicao);
 	}
 
 	public int estrategia() {

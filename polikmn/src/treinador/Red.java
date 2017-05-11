@@ -11,7 +11,11 @@ import pokemon.Raichu;
 public class Red extends Treinador{
 
 	public Red() {
-		super("Red", new Pokemon[] {new Blastoise(), new Raichu(), new Gengar()}, new Item[] {new Potion(), new SuperPotion()});
+		super("Red", new Pokemon[] {new Blastoise(), new Raichu(), new Gengar()}, new Item[] {new Potion(), new SuperPotion()}, 3);
+	}
+	
+	public Red(int posicao) {
+		super("Red", new Pokemon[] {new Blastoise(), new Raichu(), new Gengar()}, new Item[] {new Potion(), new SuperPotion()}, posicao);
 	}
 	
 	public int estrategia() {

@@ -1,14 +1,16 @@
 package batalha;
 
+import java.util.Random;
+
 import item.Item;
-import item.Potion;
-import item.SuperPotion;
 import treinador.Ash;
 import treinador.Jogador;
+import treinador.PokemonUnico;
 import treinador.Red;
 import treinador.Treinador;
 
 public class BatalhaPokemon extends Controller {
+	private static int mapa[] = {0, 1, 1, 1};//0: chão comum (sem pokemon); 1: gramado (pode ter pokemon);
 	
 	private class Ataque extends Event {
 		private int i;
@@ -84,6 +86,30 @@ public class BatalhaPokemon extends Controller {
 		
 		public String description () { 
 			return "O treinador "+treinador.getNome()+" usou o " +i.getNome()+ " em "+treinador.getPokemon(pokemon).getNome()+" (HP: "+treinador.getPokemon(pokemon).getHP()+"/"+treinador.getPokemon(pokemon).getMaxHP()+")"; 
+		}
+
+	}
+	
+	
+	private class Andar extends Event {
+		private Treinador treinador;
+		private int direcao;
+		public Andar (Treinador t, int direcaoEscolhida, long eventTime) {
+			super(eventTime);
+			treinador = t;
+			direcao = direcaoEscolhida;
+		}
+		
+		public void action () {
+			treinador.setPosicao(treinador.getPosicao()+direcao); //o metodo so muda se andar para um campo valido no vetor[0..5]
+		}
+		
+		public String description () {
+			if (mapa[treinador.getPosicao()] == 0){
+				return "O treinador "+treinador.getNome()+" está na posição "+treinador.getPosicao()+" - chão comum.";
+			}else{
+				return "O treinador "+treinador.getNome()+" está na posição "+treinador.getPosicao()+" - gramado.";
+			}
 		}
 
 	}
@@ -328,19 +354,65 @@ public class BatalhaPokemon extends Controller {
 			System.out.println(treinador1.getNome()+" ganhou!");
 		}
 	}
+	
+	public int encontraBatalha(Treinador treinador1, Treinador treinador2){
+		if ((treinador1.getPosicao() == treinador2.getPosicao()) && !treinador2.getPerdeu()){ //se estao na mesma posicao e o treinador 2 ainda nao foi derrotado
+			return 2; //batalha
+		}
+		if (mapa[treinador1.getPosicao()] == 0){
+			return 0; //nada
+		}else{
+			Random r = new Random();
+			int aux = r.nextInt(3); // um terço de chance de encontrar
+			if (aux == 1)
+				return 1; //encontra pokemon
+			else
+				return 0; //nada
+		}
+	}
+	
 		public static void main(String[] args) {
 			Treinador treinador1, treinador2, treinador3, treinador4;
 			treinador1 = new Ash();
 			treinador2 = new Red();
-			treinador3 = new Jogador("João");
-			treinador4 = new Jogador("José");
-			long tm = System.currentTimeMillis();
+			treinador4 = new Jogador("João");
+			long tm;
+			int direcao, i = 0;
+			Random r = new Random();
 			BatalhaPokemon batalha = new BatalhaPokemon();
-			//System.out.println(treinador1.getPokemonAtual().getNumAtaques());
-			/*batalha.addEvent(batalha.new Restart(treinador1, tm));
-			batalha.run(); //teste dos comandos*/
-			batalha.batalha(treinador1, treinador2, tm);
-			
+			/*batalha.addEvent(batalha.new Restart(tm));
+			batalha.run(); teste dos comandos*/
+			tm = System.currentTimeMillis();
+			while (!treinador1.getPerdeu()){
+				direcao = r.nextInt(2);
+				if (direcao == 1){
+					batalha.addEvent(batalha.new Andar(treinador1, 1, tm + i));
+				}else{
+					batalha.addEvent(batalha.new Andar(treinador1, -1, tm + i));
+				}
+				i+=1000;
+				batalha.run();
+				switch (batalha.encontraBatalha(treinador1, treinador4)){
+				case 0:
+					System.out.println("Não aconteceu nada.");
+					break;
+				case 1:
+					System.out.println("Encontrou um pokemon.");
+					treinador3 = new PokemonUnico();
+					batalha.batalha(treinador1, treinador3, tm + i);
+					tm = System.currentTimeMillis();
+					i = 0;
+					//batalha contra um pokemon
+					break;
+				case 2:
+					System.out.println("Encontrou um treinador.");
+					batalha.batalha(treinador1, treinador4, tm + i);
+					tm = System.currentTimeMillis();
+					i = 0;
+					break;
+				}
+			}
+			System.out.println("Fim - treinador sem pokemons para continuar.");
 		}
 	
 }

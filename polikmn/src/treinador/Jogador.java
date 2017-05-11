@@ -14,11 +14,19 @@ public class Jogador extends Treinador{
 private Scanner sc = new Scanner(System.in);;
 	
 	public Jogador() {
-		super("Jogador", new Pokemon[] {new Alakazam(), new Charizard()}, new Item[] {new Potion(), new SuperPotion()});
+		super("Jogador", new Pokemon[] {new Alakazam(), new Charizard()}, new Item[] {new Potion(), new SuperPotion()}, 0);
+	}
+	
+	public Jogador(int posicao) {
+		super("Jogador", new Pokemon[] {new Alakazam(), new Charizard()}, new Item[] {new Potion(), new SuperPotion()}, posicao);
 	}
 	
 	public Jogador(String nome) {
-		super(nome, new Pokemon[] {new Alakazam(), new Charizard()}, new Item[] {new Potion(), new SuperPotion()});
+		super(nome, new Pokemon[] {new Alakazam(), new Charizard()}, new Item[] {new Potion(), new SuperPotion()}, 3);
+	}
+	
+	public Jogador(String nome, int posicao) {
+		super(nome, new Pokemon[] {new Alakazam(), new Charizard()}, new Item[] {new Potion(), new SuperPotion()}, posicao);
 	}
 	
 	public int estrategia() {
