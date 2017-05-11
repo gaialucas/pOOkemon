@@ -5,7 +5,7 @@ import ataques.Ataque;
 abstract public class Pokemon {
 	private int hp, maxHP, numAtaques = 0;
 	private String nome;
-	private Ataque[] ataques = new Ataque[4];
+	private Ataque[] ataques;
 
 	public Pokemon(String nomePokemon, int vida, Ataque[] ataquesPokemon){
 		maxHP = vida;

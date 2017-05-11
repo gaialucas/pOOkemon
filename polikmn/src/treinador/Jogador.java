@@ -1,5 +1,9 @@
 package treinador;
 
+import item.Item;
+import item.Potion;
+import item.SuperPotion;
+
 import java.util.Scanner;
 
 import pokemon.Alakazam;
@@ -10,17 +14,17 @@ public class Jogador extends Treinador{
 private Scanner sc = new Scanner(System.in);;
 	
 	public Jogador() {
-		super("Jogador", new Pokemon[] {new Alakazam(), new Charizard()}, 2);
+		super("Jogador", new Pokemon[] {new Alakazam(), new Charizard()}, new Item[] {new Potion(), new SuperPotion()});
 	}
 	
 	public Jogador(String nome) {
-		super(nome, new Pokemon[] {new Alakazam(), new Charizard()}, 2);
+		super(nome, new Pokemon[] {new Alakazam(), new Charizard()}, new Item[] {new Potion(), new SuperPotion()});
 	}
 	
 	public int estrategia() {
 		int num = 0;
 		while (num > 4 || num < 1){
-			System.out.println(getNome()+ ", escolha uma ação: 1-atacar; 2-usar item; 4-fugir.");
+			System.out.println(getNome()+ ", escolha uma aï¿½ï¿½o: 1-atacar; 2-usar item; 4-fugir.");
 			num = sc.nextInt();
 		}
 		return num;

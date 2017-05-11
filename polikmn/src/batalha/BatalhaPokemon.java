@@ -143,7 +143,7 @@ public class BatalhaPokemon extends Controller {
 		do{ /*enquanto nenhum dos dois treinadores ganhou a batalha*/
 			comando1 = treinador1.estrategia();
 			comando2 = treinador2.estrategia();
-			if (comando1 > comando2){ //1 antes
+			if (comando1 >= comando2){ //1 antes
 				switch (comando1){
 				case 2:
 					if (treinador1.escolheItem() == 1){
@@ -279,7 +279,7 @@ public class BatalhaPokemon extends Controller {
 								}
 							}
 						}
-					}else{ //a ordem não influencia
+					}else{ //a ordem nï¿½o influencia
 						switch (comando1){
 						case 2:
 							if (treinador1.escolheItem() == 1){
@@ -318,8 +318,8 @@ public class BatalhaPokemon extends Controller {
 			Treinador treinador1, treinador2, treinador3, treinador4;
 			treinador1 = new Ash();
 			treinador2 = new Red();
-			treinador3 = new Jogador("João");
-			treinador4 = new Jogador("José");
+			treinador3 = new Jogador("JoÃ£o");
+			treinador4 = new Jogador("JosÃ©");
 			long tm = System.currentTimeMillis();
 			BatalhaPokemon batalha = new BatalhaPokemon(treinador1, treinador2);
 			/*batalha.addEvent(batalha.new Restart(tm));

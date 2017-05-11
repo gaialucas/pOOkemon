@@ -1,24 +1,33 @@
 package treinador;
 
+import item.Item;
 import pokemon.Pokemon;
 
 public abstract class Treinador {
 	private String nome;
-	private Pokemon[] pokemons = new Pokemon[6];
-	private int numPokemons, numPokemonsRestantes;
+	private Pokemon[] pokemons;
+	private int numPokemonsRestantes;
 	private int pkmnAtual = 0;
 	private boolean perdeu = false;
+	private Item[] bag;
 	
-	public Treinador(String nomeTreinador, Pokemon[] pokemonsTreinador, int numPokemonsTreinador){
+	public Treinador(String nomeTreinador, Pokemon[] pokemonsTreinador, Item[] itens){
 		nome = nomeTreinador;
-		for (int i = 0; i < numPokemonsTreinador; i++)
-			pokemons[i] = pokemonsTreinador[i];
-		numPokemons = numPokemonsTreinador;
-		numPokemonsRestantes = numPokemonsTreinador;
+		pokemons = pokemonsTreinador;
+		numPokemonsRestantes = pokemonsTreinador.length;
+		bag = itens;
 	}
 	
 	public String getNome(){
 		return nome;
+	}
+	
+	public String[] getBag() {
+		String[] s = new String[bag.length];
+		for(int i = 0; i < bag.length; i++) {
+			s[i] = bag[i].getNome();
+		}
+		return s;
 	}
 	
 	public int getNumPokemonsRestantes(){
@@ -26,7 +35,7 @@ public abstract class Treinador {
 	}
 	
 	public int getNumPokemons(){
-		return numPokemons;
+		return pokemons.length;
 	}
 	
 	public void pokemonMorre(){
@@ -46,7 +55,7 @@ public abstract class Treinador {
 	}
 	
 	public Pokemon getPokemon(int i){
-		if (i >= 0 && i < numPokemons){
+		if (i >= 0 && i < pokemons.length){
 			return pokemons[i];
 		}else{
 			return null;
@@ -58,7 +67,7 @@ public abstract class Treinador {
 	}
 	
 	public void setPokemonAtual(int i) {
-		if (i >= 0 && i < numPokemons)	pkmnAtual = i;
+		if (i >= 0 && i < pokemons.length)	pkmnAtual = i;
 	}
 	
 	public boolean getPerdeu(){

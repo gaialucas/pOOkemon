@@ -1,5 +1,8 @@
 package treinador;
 
+import item.Item;
+import item.Potion;
+import item.SuperPotion;
 import pokemon.Blastoise;
 import pokemon.Gengar;
 import pokemon.Pokemon;
@@ -8,7 +11,7 @@ import pokemon.Raichu;
 public class Red extends Treinador{
 
 	public Red() {
-		super("Red", new Pokemon[] {new Blastoise(), new Raichu(), new Gengar()}, 3);
+		super("Red", new Pokemon[] {new Blastoise(), new Raichu(), new Gengar()}, new Item[] {new Potion(), new SuperPotion()});
 	}
 	
 	public int estrategia() {
