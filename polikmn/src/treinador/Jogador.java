@@ -32,7 +32,11 @@ private Scanner sc = new Scanner(System.in);;
 	public int estrategia() {
 		int num = 0;
 		while (num > 4 || num < 1){
+<<<<<<< HEAD
 			System.out.println(getNome()+ ", escolha uma acao: 1-atacar; 2-usar item; 3-trocar pokémon; 4-fugir.");
+=======
+			System.out.println(getNome()+ ", escolha uma acao: 1-atacar; 2-usar item; 4-fugir.");
+>>>>>>> 521a61a50e4a5349fed53ed6ab18fdb8d38da9be
 			num = sc.nextInt();
 		}
 		return num;

@@ -10,7 +10,7 @@ import treinador.Red;
 import treinador.Treinador;
 
 public class BatalhaPokemon extends Controller {
-	private static int mapa[] = {0, 1, 1, 1};//0: chão comum (sem pokemon); 1: gramado (pode ter pokemon);
+	private static int mapa[] = {0, 1, 1, 1};//0: chao comum (sem pokemon); 1: gramado (pode ter pokemon);
 	
 	private class Ataque extends Event {
 		private int i;
@@ -106,9 +106,9 @@ public class BatalhaPokemon extends Controller {
 		
 		public String description () {
 			if (mapa[treinador.getPosicao()] == 0){
-				return "O treinador "+treinador.getNome()+" está na posição "+treinador.getPosicao()+" - chão comum.";
+				return "O treinador "+treinador.getNome()+" esta na posicao "+treinador.getPosicao()+" - chao comum.";
 			}else{
-				return "O treinador "+treinador.getNome()+" está na posição "+treinador.getPosicao()+" - gramado.";
+				return "O treinador "+treinador.getNome()+" esta na posicao "+treinador.getPosicao()+" - gramado.";
 			}
 		}
 
@@ -160,7 +160,7 @@ public class BatalhaPokemon extends Controller {
 						addEvent(new Ataque(treinador1, treinador2, atk1, tm + i));
 						run();
 						i+=1000;
-						//checa se o pokemon defensor está vivo
+						//checa se o pokemon defensor esta vivo
 						if(treinador2.getPokemonAtual().vivo()){
 							addEvent(new Ataque(treinador2, treinador1, atk2, tm + i));
 						}else{//caso morto, troca de pkmn ou anuncia derrota
@@ -190,7 +190,7 @@ public class BatalhaPokemon extends Controller {
 						addEvent(new Ataque(treinador2, treinador1, atk2, tm + i));
 						run();
 						i+=1000;
-						//checa se o pokemon defensor está vivo
+						//checa se o pokemon defensor esta vivo
 						if(treinador1.getPokemonAtual().vivo()){
 							addEvent(new Ataque(treinador1, treinador2, treinador1.escolheAtaque(), tm + i));
 						}else{//caso morto, troca ou anuncia derrota
@@ -204,8 +204,13 @@ public class BatalhaPokemon extends Controller {
 						}
 						run();
 						i+=1000;
+<<<<<<< HEAD
 						//checa se o pokemon atacante está vivo
 						if(!treinador2.getPokemonAtual().vivo()) {//caso morto, troca ou anuncia derrota
+=======
+						//checa se o pokemon atacante esta vivo
+						if(!treinador2.getPokemonAtual().vivo()) {
+>>>>>>> 521a61a50e4a5349fed53ed6ab18fdb8d38da9be
 							System.out.println(treinador2.getPokemonAtual().getNome()+" morreu!");
 							treinador2.pokemonMorre();
 							if(treinador2.restaPokemons()){
@@ -227,7 +232,7 @@ public class BatalhaPokemon extends Controller {
 						addEvent(new Ataque(treinador2, treinador1, treinador2.escolheAtaque(), tm + i));
 						run();
 						i+=1000;
-						//checa se o pokemon defensor está vivo
+						//checa se o pokemon defensor esta vivo
 						if(!treinador1.getPokemonAtual().vivo()){
 							System.out.println(treinador1.getPokemonAtual().getNome()+" morreu!");
 							treinador1.pokemonMorre();
@@ -256,7 +261,7 @@ public class BatalhaPokemon extends Controller {
 						addEvent(new Ataque(treinador2, treinador1, treinador2.escolheAtaque(), tm + i));
 						run();
 						i+=1000;
-						//checa se o pokemon defensor está vivo
+						//checa se o pokemon defensor esta vivo
 						if(!treinador1.getPokemonAtual().vivo()){
 							System.out.println(treinador1.getPokemonAtual().getNome()+" morreu!");
 							treinador1.pokemonMorre();
@@ -297,7 +302,7 @@ public class BatalhaPokemon extends Controller {
 					addEvent(new Ataque(treinador1, treinador2, treinador1.escolheAtaque(), tm + i));
 					run();
 					i+=1000;
-					//checa se o pokemon defensor está vivo
+					//checa se o pokemon defensor esta vivo
 					if(!treinador2.getPokemonAtual().vivo()){
 						System.out.println(treinador2.getPokemonAtual().getNome()+" morreu!");
 						treinador2.pokemonMorre();
@@ -319,7 +324,7 @@ public class BatalhaPokemon extends Controller {
 						addEvent(new Ataque(treinador1, treinador2, treinador1.escolheAtaque(), tm + i));
 						run();
 						i+=1000;
-						//checa se o pokemon defensor está vivo
+						//checa se o pokemon defensor esta vivo
 						if(!treinador2.getPokemonAtual().vivo()){
 							System.out.println(treinador2.getPokemonAtual().getNome()+" morreu!");
 							treinador2.pokemonMorre();
@@ -349,7 +354,7 @@ public class BatalhaPokemon extends Controller {
 			
 		}while(!(treinador1.getPerdeu()||treinador2.getPerdeu()));
 		
-		//Condições de derrota
+		//Condicoes de derrota
 		if(treinador1.getPerdeu()){
 			System.out.println(treinador2.getNome()+" ganhou!");
 		}else{
@@ -365,7 +370,7 @@ public class BatalhaPokemon extends Controller {
 			return 0; //nada
 		}else{
 			Random r = new Random();
-			int aux = r.nextInt(3); // um terço de chance de encontrar
+			int aux = r.nextInt(3); // um terao de chance de encontrar
 			if (aux == 1)
 				return 1; //encontra pokemon
 			else
@@ -377,7 +382,7 @@ public class BatalhaPokemon extends Controller {
 			Treinador treinador1, treinador2, treinador3, treinador4;
 			treinador1 = new Ash();
 			treinador2 = new Red();
-			treinador4 = new Jogador("João");
+			treinador4 = new Jogador("Joao");
 			long tm;
 			int direcao, i = 0;
 			Random r = new Random();
@@ -396,7 +401,7 @@ public class BatalhaPokemon extends Controller {
 				batalha.run();
 				switch (batalha.encontraBatalha(treinador1, treinador4)){
 				case 0:
-					System.out.println("Não aconteceu nada.");
+					System.out.println("Nao aconteceu nada.");
 					break;
 				case 1:
 					System.out.println("Encontrou um pokemon.");
@@ -408,9 +413,14 @@ public class BatalhaPokemon extends Controller {
 					break;
 				case 2:
 					System.out.println("Encontrou um treinador.");
+<<<<<<< HEAD
 					if(!treinador4.getPerdeu()){ //trocar para 2 na entrega
 						batalha.batalha(treinador1, treinador4, tm + i); //vide acima
 					}
+=======
+					if (!treinador2.getPerdeu())
+						batalha.batalha(treinador1, treinador2, tm + i);
+>>>>>>> 521a61a50e4a5349fed53ed6ab18fdb8d38da9be
 					tm = System.currentTimeMillis();
 					i = 0;
 					break;

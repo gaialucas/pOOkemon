@@ -26,7 +26,11 @@ public abstract class Treinador {
 		bag = itens;
 		posicaoMapa = posicao;
 	}
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> 521a61a50e4a5349fed53ed6ab18fdb8d38da9be
 	public String getNome(){
 		return nome;
 	}
@@ -35,8 +39,13 @@ public abstract class Treinador {
 		nome = nomeTreinador;
 	}
 	
+<<<<<<< HEAD
 	public String getBag() {
 		StringBuilder aux = new StringBuilder();
+=======
+	public String[] getBag() {
+		String[] s = new String[bag.length];
+>>>>>>> 521a61a50e4a5349fed53ed6ab18fdb8d38da9be
 		for(int i = 0; i < bag.length; i++) {
 			aux.append(i+": ");
 			aux.append(bag[i].getNome()+" ");
