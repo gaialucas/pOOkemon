@@ -17,20 +17,4 @@ public class Red extends Treinador{
 	public Red(int posicao) {
 		super("Red", new Pokemon[] {new Blastoise(), new Raichu(), new Gengar()}, new Item[] {new Potion(), new SuperPotion()}, posicao);
 	}
-	
-	public int estrategia() {
-		if (getPokemonAtual().getHP() <= 30){ //usa item neste caso
-			return 2;
-		}else{
-			return 1; //ataca
-		}
-	}
-	
-	public int escolheAtaque(){
-		return 1;
-	}
-	
-	public int escolheItem(){
-		return 0;
-	}
 }

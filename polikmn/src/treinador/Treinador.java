@@ -22,15 +22,36 @@ public abstract class Treinador {
 		posicaoMapa = posicao;
 	}
 	
+	public Treinador(Item[] itens, int posicao){
+		bag = itens;
+		posicaoMapa = posicao;
+	}
+
 	public String getNome(){
 		return nome;
 	}
 	
-	public String[] getBag() {
-		String[] s = new String[bag.length];
+	public void setNome(String nomeTreinador){
+		nome = nomeTreinador;
+	}
+	
+	public String getBag() {
+		StringBuilder aux = new StringBuilder();
 		for(int i = 0; i < bag.length; i++) {
-			s[i] = bag[i].getNome();
+			aux.append(i+": ");
+			aux.append(bag[i].getNome()+" ");
 		}
+		String s = aux.toString();
+		return s;
+	}
+	
+	public String getTeam() {
+		StringBuilder aux = new StringBuilder();
+		for(int i = 0; i < pokemons.length; i++) {
+			aux.append(i+": ");
+			aux.append(pokemons[i].getNome()+" ");
+		}
+		String s = aux.toString();
 		return s;
 	}
 	
@@ -70,10 +91,15 @@ public abstract class Treinador {
 		}
 	}
 	
+	public void setPokemons(Pokemon[] pokemonsTreinador){
+		pokemons = pokemonsTreinador;
+		numPokemonsRestantes = pokemonsTreinador.length;
+	}
+	
 	public int trocaPokemon(){
 		Random r = new Random();
 		int aux = r.nextInt(pokemons.length);
-		while(!getPokemon(aux).vivo()){
+		while(!getPokemon(aux).vivo() || aux==this.getIndex()){
 			aux = r.nextInt(pokemons.length);
 		}
 		return aux;
@@ -109,8 +135,26 @@ public abstract class Treinador {
 		perdeu = true;
 	}
 	
-	abstract public int estrategia();
-	abstract public int escolheAtaque();
-	abstract public int escolheItem();
+	public int estrategia() {
+		Random r = new Random();
+		if (getPokemonAtual().getHP() <= 30){ //usa item neste caso
+			return 2;
+		}else{
+			int action = r.nextInt(100);
+			if(action < 1) return 4;//1% de chance de fugir
+			else if (action < 26) return 2; //25% de chance de usar item
+			else if (action < 35 && this.getNumPokemonsRestantes()!=1) return 3; //9% de chance de trocar, caso ele mais de 1 pkmn sobrando
+			else return 1; //65% de chance de atacar
+		}
+	}
 	
+	public int escolheItem(){
+		Random r = new Random();
+		return r.nextInt(bag.length);
+	}
+	
+	public int escolheAtaque(){
+		Random r = new Random();
+		return r.nextInt(getPokemonAtual().getNumAtaques());
+	}
 }

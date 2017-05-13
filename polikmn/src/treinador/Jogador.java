@@ -32,7 +32,7 @@ private Scanner sc = new Scanner(System.in);;
 	public int estrategia() {
 		int num = 0;
 		while (num > 4 || num < 1){
-			System.out.println(getNome()+ ", escolha uma a��o: 1-atacar; 2-usar item; 4-fugir.");
+			System.out.println(getNome()+ ", escolha uma acao: 1-atacar; 2-usar item; 3-trocar pokémon; 4-fugir.");
 			num = sc.nextInt();
 		}
 		return num;
@@ -51,12 +51,26 @@ private Scanner sc = new Scanner(System.in);;
 		return num;
 	}
 	
-	public int escolheItem(){
+	public int escolheItem(){ //arrumar
 		int num = 5;
 		while (num > 1 || num < 0){
-			System.out.println(getNome()+", escolha um item: 0-potion (restaura 20 de HP); 1-super potion (restaura 50 de HP)");
+			System.out.println(getNome()+", escolha um item: "+getBag());
 			num = sc.nextInt();
 		}
 		return num;
+	}
+	
+	public int trocaPokemon() {
+		int num = 7;
+		while(num < 0 || num > getNumPokemons()){
+			System.out.println(getNome()+", escolha um pokémon: "+getTeam());
+			num = sc.nextInt();
+		}
+		while(!getPokemon(num).vivo() || num==this.getIndex()){
+			System.out.println(getNome()+", escolha um pokémon: "+getTeam());
+			num = sc.nextInt();
+		}
+
+	return num;
 	}
 }
