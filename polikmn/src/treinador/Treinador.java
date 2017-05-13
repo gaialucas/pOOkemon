@@ -22,8 +22,17 @@ public abstract class Treinador {
 		posicaoMapa = posicao;
 	}
 	
+	public Treinador(Item[] itens, int posicao){
+		bag = itens;
+		posicaoMapa = posicao;
+	}
+	
 	public String getNome(){
 		return nome;
+	}
+	
+	public void setNome(String nomeTreinador){
+		nome = nomeTreinador;
 	}
 	
 	public String[] getBag() {
@@ -68,6 +77,11 @@ public abstract class Treinador {
 		}else{
 			return null;
 		}
+	}
+	
+	public void setPokemons(Pokemon[] pokemonsTreinador){
+		pokemons = pokemonsTreinador;
+		numPokemonsRestantes = pokemonsTreinador.length;
 	}
 	
 	public int trocaPokemon(){

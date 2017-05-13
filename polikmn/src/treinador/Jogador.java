@@ -32,7 +32,7 @@ private Scanner sc = new Scanner(System.in);;
 	public int estrategia() {
 		int num = 0;
 		while (num > 4 || num < 1){
-			System.out.println(getNome()+ ", escolha uma a��o: 1-atacar; 2-usar item; 4-fugir.");
+			System.out.println(getNome()+ ", escolha uma acao: 1-atacar; 2-usar item; 4-fugir.");
 			num = sc.nextInt();
 		}
 		return num;
