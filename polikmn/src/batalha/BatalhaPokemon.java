@@ -3,11 +3,16 @@ package batalha;
 import java.util.Random;
 
 import item.Item;
+import item.Pokeball;
 import treinador.Ash;
+import treinador.BugCatcherBili;
+import treinador.Hugo;
 import treinador.Jogador;
+import treinador.Lance;
 import treinador.PokemonUnico;
 import treinador.Red;
 import treinador.Treinador;
+import treinador.YoungsterJoey;
 
 public class BatalhaPokemon extends Controller {
 	private static int mapa[] = {0, 1, 1, 1};//0: chão comum (sem pokemon); 1: gramado (pode ter pokemon);
@@ -28,7 +33,7 @@ public class BatalhaPokemon extends Controller {
 		}
 		
 		public String description () { 
-			return treinador1.getPokemonAtual().getNome() + " (HP: "+treinador1.getPokemonAtual().getHP()+"/"+treinador1.getPokemonAtual().getMaxHP()+") atacou " + treinador2.getPokemonAtual().getNome() + " (HP: "+treinador2.getPokemonAtual().getHP()+"/"+treinador2.getPokemonAtual().getMaxHP()+") com " + treinador1.getPokemonAtual().getAtaque(i).getNome(); 
+			return treinador1.getPokemonAtual().getNome() + " usou " + treinador1.getPokemonAtual().getAtaque(i).getNome()+"\n"+treinador2.getPokemonAtual().getNome()+" HP:"+treinador2.getPokemonAtual().getHP()+"/"+treinador2.getPokemonAtual().getMaxHP(); 
 		}
 	}
 	
@@ -44,7 +49,7 @@ public class BatalhaPokemon extends Controller {
 		}
 		
 		public String description () { 
-			return "O treinador "+treinador.getNome()+" fugiu da batalha!"; 
+			return treinador.getNome()+" fugiu da batalha!"; 
 		}
 
 	}
@@ -64,18 +69,19 @@ public class BatalhaPokemon extends Controller {
 		}
 		
 		public String description () { 
-			return "O treinador "+treinador.getNome()+" trocou para "+treinador.getPokemonAtual().getNome(); 
+			return treinador.getNome()+" trocou para "+treinador.getPokemonAtual().getNome(); 
 		}
 
 	}
 	
 	private class UsarItem extends Event {
-		private Treinador treinador;
+		private Treinador treinador/*, oponente*/;
 		private int pokemon;
 		private Item i;
-		public UsarItem (Treinador t,int indicePokemonEscolhido, Item item, long eventTime) {
+		public UsarItem (Treinador t/*, Treinador t2*/, int indicePokemonEscolhido, Item item, long eventTime) {
 			super(eventTime);
 			treinador = t;
+			/*oponente = t2;*/
 			pokemon = indicePokemonEscolhido;
 			i = item;
 		}
@@ -85,7 +91,7 @@ public class BatalhaPokemon extends Controller {
 		}
 		
 		public String description () { 
-			return "O treinador "+treinador.getNome()+" usou o " +i.getNome()+ " em "+treinador.getPokemon(pokemon).getNome()+" (HP: "+treinador.getPokemon(pokemon).getHP()+"/"+treinador.getPokemon(pokemon).getMaxHP()+")"; 
+			return treinador.getNome()+" usou o " +i.getNome()+ " em "+treinador.getPokemon(pokemon).getNome()+" (HP: "+treinador.getPokemon(pokemon).getHP()+"/"+treinador.getPokemon(pokemon).getMaxHP()+")";
 		}
 
 	}
@@ -101,20 +107,24 @@ public class BatalhaPokemon extends Controller {
 		}
 		
 		public void action () {
-			treinador.setPosicao(treinador.getPosicao()+direcao); //o metodo so muda se andar para um campo valido no vetor[0..5]
+			if(treinador.getPosicao() + direcao >= 0 && treinador.getPosicao() + direcao < mapa.length){
+				treinador.setPosicao(treinador.getPosicao()+direcao); //o metodo so muda se andar para um campo valido no vetor[0..5]
+			}
 		}
 		
 		public String description () {
-			if (mapa[treinador.getPosicao()] == 0){
-				return "O treinador "+treinador.getNome()+" está na posição "+treinador.getPosicao()+" - chao comum.";
-			}else{
-				return "O treinador "+treinador.getNome()+" está na posição "+treinador.getPosicao()+" - gramado.";
-			}
+			if(treinador.getPosicao() + direcao >= 0 && treinador.getPosicao() + direcao < mapa.length){
+				if (mapa[treinador.getPosicao()] == 0){
+					return "O treinador "+treinador.getNome()+" está na posição "+treinador.getPosicao()+" - chao comum.";
+				}else{
+					return "O treinador "+treinador.getNome()+" está na posição "+treinador.getPosicao()+" - gramado.";
+				}
+			}else return "Treinador parado.";
 		}
 
 	}
 	
-	private class Restart extends Event {
+	/*private class Restart extends Event {
 		private Treinador treinador1;
 		public Restart(Treinador t, long eventTime) {
 			super(eventTime);
@@ -137,17 +147,20 @@ public class BatalhaPokemon extends Controller {
 			addEvent(new TrocarPokemon(treinador1, 1, tm + 6000));
 			addEvent(new UsarItem(treinador2, 0, new Potion(), tm + 6500));
 			addEvent(new Ataque12(1, tm + 7000));
-			addEvent(new Ataque21(1, tm + 8000));*/
+			addEvent(new Ataque21(1, tm + 8000));*//*
 			addEvent(new Fugir(treinador1, tm + 9000));
 		}
 		public String description() {
 			return "Restarting system";
 		}
-	}
+	}*/
 	
 	public void batalha(Treinador treinador1, Treinador treinador2, long tm){
 		int i = 0;
 		int comando1, comando2; //comando dos jogadores 1 e 2
+		if(PokemonUnico.class.isInstance(treinador2)){
+			System.out.println("Um "+treinador2.getNome()+" selvagem apareceu! ");
+		}else System.out.println(treinador2.getNome()+" desafiou "+treinador1.getNome()+"!");
 		do{/* Enquanto nenuhm jogador ganhou a batalha */
 			comando1 = treinador1.estrategia();
 			comando2 = treinador2.estrategia();
@@ -374,9 +387,9 @@ public class BatalhaPokemon extends Controller {
 	}
 	
 		public static void main(String[] args) {
-			Treinador treinador1, treinador2, treinador3, treinador4;
+			Treinador treinador1, treinador3, treinador4;
+			Treinador[] treinador2 = {new Red(), new YoungsterJoey(), new Lance(), new BugCatcherBili(), new Hugo()};
 			treinador1 = new Ash();
-			treinador2 = new Red();
 			treinador4 = new Jogador("João");
 			long tm;
 			int direcao, i = 0;
@@ -407,9 +420,10 @@ public class BatalhaPokemon extends Controller {
 					//batalha contra um pokemon
 					break;
 				case 2:
+					int aux = r.nextInt(treinador2.length);
 					System.out.println("Encontrou um treinador.");
-					if(!treinador4.getPerdeu()){ //trocar para 2 na entrega
-						batalha.batalha(treinador1, treinador4, tm + i); //vide acima
+					if(!treinador2[aux].getPerdeu()){ //trocar para 2 na entrega
+						batalha.batalha(treinador1, treinador2[aux], tm + i); //vide acima
 					}
 					tm = System.currentTimeMillis();
 					i = 0;

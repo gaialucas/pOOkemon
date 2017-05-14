@@ -8,6 +8,6 @@ import ataques.Thunderbolt;
 
 public class Pikachu extends Pokemon {
 	public Pikachu(){
-		super("Pikachu", 180, new Ataque[] {new Tackle(), new QuickAttack(), new Spark(), new Thunderbolt()});
+		super("Pikachu", 150, new Ataque[] {new Tackle(), new QuickAttack(), new Spark(), new Thunderbolt()});
 	}
 }

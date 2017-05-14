@@ -8,6 +8,6 @@ import ataques.VineWhip;
 
 public class Venusaur extends Pokemon {
 	public Venusaur(){
-		super("Venusaur", 100, new Ataque[] {new VineWhip(), new SludgeBomb(), new Solarbeam(), new Cut()});
+		super("Venusaur", 110, new Ataque[] {new VineWhip(), new SludgeBomb(), new Solarbeam(), new Cut()});
 	}
 }

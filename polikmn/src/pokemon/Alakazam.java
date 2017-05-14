@@ -8,6 +8,6 @@ import ataques.ShadowBall;
 
 public class Alakazam extends Pokemon {
 	public Alakazam(){
-		super("Alakazam", 60, new Ataque[] {new Confusion(), new Psychic(), new ShadowBall(), new HyperBeam()});
+		super("Alakazam", 90, new Ataque[] {new Confusion(), new Psychic(), new ShadowBall(), new HyperBeam()});
 	}
 }

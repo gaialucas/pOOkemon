@@ -8,6 +8,6 @@ import ataques.RockSlide;
 
 public class Rhydon extends Pokemon {
 	public Rhydon(){
-		super("Rhydon", 100, new Ataque[] {new RockSlide(), new Earthquake(), new MegaPunch(), new DoubleKick()});
+		super("Rhydon", 90, new Ataque[] {new RockSlide(), new Earthquake(), new MegaPunch(), new DoubleKick()});
 	}
 }

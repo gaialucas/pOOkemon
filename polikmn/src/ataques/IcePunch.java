@@ -4,7 +4,7 @@ package ataques;
 public class IcePunch extends Ataque {
 
 	public IcePunch() {
-		super("IcePunch", 35, 0/*, "Ice"*/);
+		super("IcePunch", 45, 0/*, "Ice"*/);
 	}
 
 }

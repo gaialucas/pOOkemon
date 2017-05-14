@@ -89,10 +89,6 @@ public class PokemonUnico extends Treinador{
 			return 1; //ataca
 	}
 	
-	public int escolheAtaque(){
-		return 1;
-	}
-	
 	public int escolheItem(){
 		return 0;
 	}

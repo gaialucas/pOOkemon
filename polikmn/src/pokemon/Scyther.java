@@ -8,6 +8,6 @@ import ataques.XScissor;
 
 public class Scyther extends Pokemon {
 	public Scyther(){
-		super("Scyther", 60, new Ataque[] {new XScissor(), new WingAttack(), new QuickAttack(), new DoubleKick()});
+		super("Scyther", 80, new Ataque[] {new XScissor(), new WingAttack(), new QuickAttack(), new DoubleKick()});
 	}
 }

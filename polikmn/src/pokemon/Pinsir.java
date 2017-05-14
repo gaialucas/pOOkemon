@@ -8,6 +8,6 @@ import ataques.XScissor;
 
 public class Pinsir extends Pokemon {
 	public Pinsir(){
-		super("Pinsir", 80, new Ataque[] {new Guillotine(), new QuickAttack(), new XScissor(), new Takedown()});
+		super("Pinsir", 90, new Ataque[] {new Guillotine(), new QuickAttack(), new XScissor(), new Takedown()});
 	}
 }

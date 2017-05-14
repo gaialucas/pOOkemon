@@ -8,6 +8,6 @@ import ataques.Thundershock;
 
 public class Raichu extends Pokemon {
 	public Raichu(){
-		super("Raichu", 70, new Ataque[] {new Thunderbolt(), new QuickAttack(), new Thundershock(), new IronTail()});
+		super("Raichu", 80, new Ataque[] {new Thunderbolt(), new QuickAttack(), new Thundershock(), new IronTail()});
 	}
 }

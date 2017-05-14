@@ -4,7 +4,7 @@ package ataques;
 public class Surf extends Ataque {
 
 	public Surf() {
-		super("Surf", 40, 0/*, "Water"*/);
+		super("Surf", 50, 0/*, "Water"*/);
 	}
 
 }

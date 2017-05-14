@@ -8,6 +8,6 @@ import ataques.Surf;
 
 public class Blastoise extends Pokemon {
 	public Blastoise(){
-		super("Blastoise", 100, new Ataque[] {new Surf(), new HydroPump(), new IceBeam(), new MegaPunch()});
+		super("Blastoise", 120, new Ataque[] {new Surf(), new HydroPump(), new IceBeam(), new MegaPunch()});
 	}
 }
