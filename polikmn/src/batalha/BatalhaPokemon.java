@@ -91,7 +91,7 @@ public class BatalhaPokemon extends Controller {
 		}
 		
 		public String description () { 
-			return treinador.getNome()+" usou o " +i.getNome()+ " em "+treinador.getPokemon(pokemon).getNome()+" (HP: "+treinador.getPokemon(pokemon).getHP()+"/"+treinador.getPokemon(pokemon).getMaxHP()+")";
+			return treinador.getNome()+" usou " +i.getNome()+ " em "+treinador.getPokemon(pokemon).getNome()+" (HP: "+treinador.getPokemon(pokemon).getHP()+"/"+treinador.getPokemon(pokemon).getMaxHP()+")";
 		}
 
 	}
@@ -115,45 +115,14 @@ public class BatalhaPokemon extends Controller {
 		public String description () {
 			if(treinador.getPosicao() + direcao >= 0 && treinador.getPosicao() + direcao < mapa.length){
 				if (mapa[treinador.getPosicao()] == 0){
-					return "O treinador "+treinador.getNome()+" está na posição "+treinador.getPosicao()+" - chao comum.";
+					return treinador.getNome()+" está na posição "+treinador.getPosicao()+" (chao comum).";
 				}else{
-					return "O treinador "+treinador.getNome()+" está na posição "+treinador.getPosicao()+" - gramado.";
+					return treinador.getNome()+" está na posição "+treinador.getPosicao()+" (gramado).";
 				}
 			}else return "Treinador parado.";
 		}
 
 	}
-	
-	/*private class Restart extends Event {
-		private Treinador treinador1;
-		public Restart(Treinador t, long eventTime) {
-			super(eventTime);
-			treinador1 = t;
-		}
-		public void action() {
-			long tm = System.currentTimeMillis();
-			// Instead of hard-wiring, you could parse
-			// configuration information from a text
-			// file here:
-			//teste
-			/*addEvent(new Ataque12(1, tm));
-			addEvent(new Ataque21(1, tm + 1000));
-			addEvent(new UsarItem(treinador1, 0, new Potion(), tm + 1500));
-			addEvent(new Ataque12(1, tm + 2000));
-			addEvent(new Ataque21(1, tm + 3000));
-			addEvent(new UsarItem(treinador2, 0, new SuperPotion(), tm + 3500));
-			addEvent(new Ataque12(1, tm + 4000));
-			addEvent(new Ataque21(1, tm + 5000));
-			addEvent(new TrocarPokemon(treinador1, 1, tm + 6000));
-			addEvent(new UsarItem(treinador2, 0, new Potion(), tm + 6500));
-			addEvent(new Ataque12(1, tm + 7000));
-			addEvent(new Ataque21(1, tm + 8000));*//*
-			addEvent(new Fugir(treinador1, tm + 9000));
-		}
-		public String description() {
-			return "Restarting system";
-		}
-	}*/
 	
 	public void batalha(Treinador treinador1, Treinador treinador2, long tm){
 		int i = 0;
@@ -359,6 +328,8 @@ public class BatalhaPokemon extends Controller {
 					break;
 				}
 			}
+			tm = System.currentTimeMillis();
+			i = 0;
 			
 		}while(!(treinador1.getPerdeu()||treinador2.getPerdeu()));
 		
@@ -398,6 +369,10 @@ public class BatalhaPokemon extends Controller {
 			/*batalha.addEvent(batalha.new Restart(tm));
 			batalha.run(); teste dos comandos*/
 			tm = System.currentTimeMillis();
+			//condições iniciais
+			batalha.addEvent(batalha.new Andar(treinador1, 0, tm + i));
+			batalha.run();
+			i+=1000;
 			while (!treinador1.getPerdeu()){
 				direcao = r.nextInt(2);
 				if (direcao == 1){
@@ -421,8 +396,8 @@ public class BatalhaPokemon extends Controller {
 					break;
 				case 2:
 					int aux = r.nextInt(treinador2.length);
-					System.out.println("Encontrou um treinador.");
-					if(!treinador2[aux].getPerdeu()){ //trocar para 2 na entrega
+					if(!treinador2[aux].getPerdeu()){ //trocar para treinador4 caso queira ser o oponente.
+						System.out.println("Encontrou um treinador.");
 						batalha.batalha(treinador1, treinador2[aux], tm + i); //vide acima
 					}
 					tm = System.currentTimeMillis();
