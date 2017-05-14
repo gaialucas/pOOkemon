@@ -10,7 +10,7 @@ public abstract class Treinador {
 	private Pokemon[] pokemons;
 	private int numPokemonsRestantes;
 	private int pkmnAtual = 0;
-	private boolean perdeu = false;
+	private boolean perdeu = false, fugiu = false;
 	private Item[] bag;
 	private int posicaoMapa;
 	
@@ -121,6 +121,10 @@ public abstract class Treinador {
 		return perdeu;
 	}
 	
+	public boolean getFugiu(){
+		return fugiu;
+	}
+	
 	public int getPosicao(){
 		return posicaoMapa;
 	}
@@ -133,6 +137,16 @@ public abstract class Treinador {
 	
 	public void setPerdeu() {
 		perdeu = true;
+	}
+	
+	public void setFugiu() {
+		fugiu = true;
+		perdeu = true;
+	}
+	
+	public void controleDerrota(){
+		fugiu = false;
+		perdeu = false;
 	}
 	
 	public int estrategia() {

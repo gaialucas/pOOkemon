@@ -404,6 +404,9 @@ public class BatalhaPokemon extends Controller {
 					i = 0;
 					break;
 				}
+				if(treinador1.getFugiu()){
+					treinador1.controleDerrota();
+				}
 			}
 			System.out.println("Fim - treinador sem pokemons para continuar.");
 		}
