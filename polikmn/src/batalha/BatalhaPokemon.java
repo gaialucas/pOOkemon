@@ -3,7 +3,6 @@ package batalha;
 import java.util.Random;
 
 import item.Item;
-import item.Pokeball;
 import treinador.Ash;
 import treinador.BugCatcherBili;
 import treinador.Hugo;
