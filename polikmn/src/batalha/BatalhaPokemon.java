@@ -45,7 +45,7 @@ public class BatalhaPokemon extends Controller {
 		}
 		
 		public void action () {
-			treinador.setPerdeu();
+			treinador.setFugiu();
 		}
 		
 		public String description () { 

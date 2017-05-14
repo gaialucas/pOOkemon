@@ -156,9 +156,9 @@ public abstract class Treinador {
 		}else{
 			int action = r.nextInt(100);
 			if(action < 1) return 4;//1% de chance de fugir
-			else if (action < 16) return 2; //15% de chance de usar item
-			else if (action < 25 && this.getNumPokemonsRestantes()!=1) return 3; //9% de chance de trocar, caso ele mais de 1 pkmn sobrando
-			else return 1; //5% de chance de atacar
+			else if (action < 11) return 2; //10% de chance de usar item
+			else if (action < 20 && this.getNumPokemonsRestantes()!=1) return 3; //9% de chance de trocar, caso ele mais de 1 pkmn sobrando
+			else return 1; //80% de chance de atacar
 		}
 	}
 	
